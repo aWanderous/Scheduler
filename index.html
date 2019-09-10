@@ -12,16 +12,17 @@
   </head>
   <body>
         <div class="jumbotron" style="text-align: center">
-            <h1 class="display-4">Train Timesheet</h1>
-            <p class="lead">Train run times and arrivals.</p>
+            <h1 class="display-4">Ship Timesheet</h1>
+            <p class="lead">Ship arrivals and departures.</p>
+            <h4 id="time"></h4S>
         </div>
         
         <div class="container">
             <table class="table">
-                <h3>Train schedule</h3>
+                <h3>Ship Schedule</h3>
                 <thead>
                     <tr>
-                        <th scope="col">Train</th>
+                        <th scope="col">Vessel Name</th>
                         <th scope="col">Destination</th>
                         <th scope="col">Frequency</th>
                         <th scope="col">Next Arrival</th>
@@ -34,22 +35,22 @@
         </div>  
             <form>
                <div class="container">
-                    <h3>Add New Train</h3>
+                    <h3>Add New Ship</h3>
                 <div class="form-group">
-                    <label for="formGroupExampleInput">Train Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Choo choo">
+                    <label for="formGroupExampleInput">Vessel Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Zoom zoom">
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Destination</label>
-                    <input type="text" class="form-control" id="Place" placeholder="Somewhere">
+                    <input type="text" class="form-control" id="place" placeholder="Somewhere">
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput">First Train Time (24 Hours time)</label>
-                    <input type="time" class="form-control" id="started" placeholder="00:00">
+                    <input type="time" class="form-control" id="started">
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Frequency (Minutes)</label>
-                    <input type="number" class="form-control" id="Frequency" placeholder="000">
+                    <input type="number" class="form-control" id="rate" placeholder="00">
                 </div>
             </form>
 
@@ -61,9 +62,9 @@
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-            <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
             <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
             <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
             <script type="text/javascript" src="assets/Logic.js"></script>
-        </body>
-        </html>
+    </body>
+</html>
