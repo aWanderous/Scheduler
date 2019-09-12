@@ -13,40 +13,46 @@ var firebaseConfig = {
 
 var database = firebase.database();
 
-$("#time").html("Current time: " + moment().format("HH:mm"))
 
 
 $("button").click(function(event){
     event.preventDefault();
-
+    
     // prevent empty values entered 
     if ($("#name").val() === "" ||
     $("#place").val() === "" ||
     $("#started").val() === "" ||
     $("#rate").val() === "") {
-
-    alert("Please fill in all details to add new ship");
-
+        
+        alert("Please fill in all details to add new ship");
+        
     } else {
-    
+        
     var name = $("#name").val();
     var place = $("#place").val();
     var started = $("#started").val();
     var rate = $("#rate").val();
-
+    
     database.ref().push({
         name: name,
         destination: place,
         started: started,
         frequenucy: rate
     });
-    }
+}
 });
 
+// time
+$("#time").html("Current time: " + moment().format("HH:mm:ss"));
+
+setInterval(function clock(){ 
+$("#time").html("Current time: " + moment().format("HH:mm:ss"))
+}, 1000);
 
 $(document).ready(function(){
     
     renderInfo();
+    clock();
 });
 
 function renderInfo () {
@@ -64,14 +70,20 @@ function renderInfo () {
         $("<td>").text(snapshot.val().frequenucy)
         .appendTo(newRow);
         // next arrival time
-        var nextShip = moment().diff(moment(snapshot.val().started, "mm"))
+        
+        // snapshot.val().started returns 00:34
+        // then you need to generate a string with the current date
+        // concatenate the date + hour
+        // moment of the concatenated variable
+        console.log(moment(snapshot.val().started));
+        var nextShip = moment().diff(moment(snapshot.val().started), "minutes");
         //  % (snapshot.val().frequenucy, "mm"))
         console.log(nextShip)
 
         // $("<td>").text(.format("HH:mm"))
         // .appendTo(newRow);
-        $("<td>").text(moment().diff(moment(snapshot.val().started)))
-        .appendTo(newRow);
+        $("<td>").text(moment().diff(moment(snapshot.val().started)));
+        // .appendTo(newRow);
     }, function(errorObject) {
         console.log("error with " + errorObject.code);
     });
