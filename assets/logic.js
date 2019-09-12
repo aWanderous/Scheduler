@@ -13,12 +13,22 @@ var firebaseConfig = {
 
 var database = firebase.database();
 
-var date = new Date();
-$("#time").html("Current time: " + date);
-    
+$("#time").html("Current time: " + moment().format("HH:mm"))
+
+
 $("button").click(function(event){
     event.preventDefault();
 
+    // prevent empty values entered 
+    if ($("#name").val() === "" ||
+    $("#place").val() === "" ||
+    $("#started").val() === "" ||
+    $("#rate").val() === "") {
+
+    alert("Please fill in all details to add new ship");
+
+    } else {
+    
     var name = $("#name").val();
     var place = $("#place").val();
     var started = $("#started").val();
@@ -30,6 +40,7 @@ $("button").click(function(event){
         started: started,
         frequenucy: rate
     });
+    }
 });
 
 
@@ -42,16 +53,24 @@ function renderInfo () {
     $("#info").empty();
     database.ref().on("child_added", function(snapshot){
         var newRow = $("<tr>")
-        .appendTo("tbody")
+        .appendTo("tbody");
+        // ship name
         $("<td>").text(snapshot.val().name)
         .appendTo(newRow);
+        // destination
         $("<td>").text(snapshot.val().destination)
         .appendTo(newRow);
-        $("<td>").text(snapshot.val().rate)
+        // frequenucy
+        $("<td>").text(snapshot.val().frequenucy)
         .appendTo(newRow);
-        $("<td>").text(moment().diff(moment(snapshot.val().started, "DD/MM/YYYY"), "months"))
-        .appendTo(newRow);
-        $("<td>").text(snapshot.val().rate * moment().diff(moment(snapshot.val().started, "DD/MM/YYYY"), "months"))
+        // next arrival time
+        var nextShip = moment().diff(moment(snapshot.val().started, "mm"))
+        //  % (snapshot.val().frequenucy, "mm"))
+        console.log(nextShip)
+
+        // $("<td>").text(.format("HH:mm"))
+        // .appendTo(newRow);
+        $("<td>").text(moment().diff(moment(snapshot.val().started)))
         .appendTo(newRow);
     }, function(errorObject) {
         console.log("error with " + errorObject.code);
