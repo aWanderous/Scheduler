@@ -39,12 +39,13 @@ $("button").click(function(event){
         started: started,
         frequenucy: rate
     });
+
+    $("#newShips")[0].reset();
+
 }
 });
 
 // time
-$("#time").html("Current time: " + moment().format("HH:mm:ss"));
-
 setInterval(function clock(){ 
 $("#time").html("Current time: " + moment().format("HH:mm:ss"))
 }, 1000);
@@ -52,7 +53,6 @@ $("#time").html("Current time: " + moment().format("HH:mm:ss"))
 $(document).ready(function(){
     
     renderInfo();
-    clock();
 });
 
 function renderInfo () {
@@ -73,14 +73,18 @@ function renderInfo () {
         
         // snapshot.val().started returns 00:34
         // then you need to generate a string with the current date
+        var timeNow = moment().format('HH:mm')
+        console.log(timeNow)
+        var timeStart = snapshot.val().started
+        console.log(timeStart)
         // concatenate the date + hour
         // moment of the concatenated variable
-        console.log(moment(snapshot.val().started));
-        var nextShip = moment().diff(moment(snapshot.val().started), "minutes");
+        console.log(snapshot.val().started);
+        var nextShip = 
+        // $("<td>").text(.format("HH:mm"))
         //  % (snapshot.val().frequenucy, "mm"))
         console.log(nextShip)
 
-        // $("<td>").text(.format("HH:mm"))
         // .appendTo(newRow);
         $("<td>").text(moment().diff(moment(snapshot.val().started)));
         // .appendTo(newRow);
