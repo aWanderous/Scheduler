@@ -69,23 +69,32 @@ function renderInfo () {
         // frequenucy
         $("<td>").text(snapshot.val().frequenucy)
         .appendTo(newRow);
-        // next arrival time
+
+        var timeNow = new Date();
+        var m = timeNow.getMinutes();
+        var h = timeNow.getHours();
+        if(h == '0') {h = 24}
+        var currentTime = h+"."+m;
+        console.log(currentTime)
+        var timeStart = snapshot.val().started;
+        var time = timeStart.split(":");
+        var hour = time[0];
+        var min = time[1];
         
-        // snapshot.val().started returns 00:34
-        // then you need to generate a string with the current date
-        var timeNow = moment().format('HH:mm')
-        console.log(timeNow)
-        var timeStart = snapshot.val().started
-        console.log(timeStart)
-        // concatenate the date + hour
-        // moment of the concatenated variable
-        console.log(snapshot.val().started);
-        var nextShip = 
-        // $("<td>").text(.format("HH:mm"))
-        //  % (snapshot.val().frequenucy, "mm"))
+        var inputTime = hour+"."+min;
+        var totalTime = currentTime - inputTime;
+        var times = snapshot.val().frequenucy;
+        var divide = totalTime / times;
+        var nextTime = times - divide;
+        var nextShip = Number(currentTime) + nextTime
+        
+        console.log(nextTime)
+        // next arrival time
+        // $("<td>").text(h+":"+m)
+        // .appendTo(newRow);
+        
         console.log(nextShip)
 
-        // .appendTo(newRow);
         $("<td>").text(moment().diff(moment(snapshot.val().started)));
         // .appendTo(newRow);
     }, function(errorObject) {
