@@ -70,33 +70,20 @@ function renderInfo () {
         $("<td>").text(snapshot.val().frequenucy)
         .appendTo(newRow);
 
-        var timeNow = new Date();
-        var m = timeNow.getMinutes();
-        var h = timeNow.getHours();
-        if(h == '0') {h = 24}
-        var currentTime = h+"."+m;
-        console.log(currentTime)
-        var timeStart = snapshot.val().started;
-        var time = timeStart.split(":");
-        var hour = time[0];
-        var min = time[1];
-        
-        var inputTime = hour+"."+min;
-        var totalTime = currentTime - inputTime;
-        var times = snapshot.val().frequenucy;
-        var divide = totalTime / times;
-        var nextTime = times - divide;
-        var nextShip = Number(currentTime) + nextTime
-        
-        console.log(nextTime)
-        // next arrival time
-        // $("<td>").text(h+":"+m)
-        // .appendTo(newRow);
-        
-        console.log(nextShip)
+        var firstTimeConverted = moment(snapshot.val().started, "hh:mm").subtract(1, "years");
 
-        $("<td>").text(moment().diff(moment(snapshot.val().started)));
-        // .appendTo(newRow);
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        var tRemainder = diffTime % snapshot.val().frequenucy;
+        var minutesAway = snapshot.val().frequenucy - tRemainder;
+        var nextArrival = moment().add(minutesAway, "minutes").format("HH:mm");
+
+        // next arrival time
+        $("<td>").text(nextArrival)
+        .appendTo(newRow);
+        
+        // minutes away
+        $("<td>").text(minutesAway)
+        .appendTo(newRow);
     }, function(errorObject) {
         console.log("error with " + errorObject.code);
     });
